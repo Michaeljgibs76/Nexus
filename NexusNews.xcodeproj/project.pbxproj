@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0000000000000000000000B1 /* NexusNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F1 /* NexusNewsApp.swift */; };
+		0000000000000000000000B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F2 /* ContentView.swift */; };
+		0000000000000000000000B3 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F3 /* NewsStory.swift */; };
+		0000000000000000000000B4 /* PoliticalViewpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F4 /* PoliticalViewpoint.swift */; };
+		0000000000000000000000B5 /* NewsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F5 /* NewsListView.swift */; };
+		0000000000000000000000B6 /* NewsStoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F6 /* NewsStoryCard.swift */; };
+		0000000000000000000000B7 /* BiasRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F7 /* BiasRatingView.swift */; };
+		0000000000000000000000B8 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F8 /* NewsDetailView.swift */; };
+		0000000000000000000000B9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000F9 /* ErrorView.swift */; };
+		0000000000000000000000BA /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FA /* EmptyStateView.swift */; };
+		0000000000000000000000BB /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FB /* NewsViewModel.swift */; };
+		0000000000000000000000BC /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FC /* NewsService.swift */; };
+		0000000000000000000000BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FD /* ShareSheet.swift */; };
+		0000000000000000000000BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FE /* Assets.xcassets */; };
+		0000000000000000000000BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FF /* Preview Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0000000000000000000000F1 /* NexusNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusNewsApp.swift; sourceTree = "<group>"; };
+		0000000000000000000000F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0000000000000000000000F3 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
+		0000000000000000000000F4 /* PoliticalViewpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticalViewpoint.swift; sourceTree = "<group>"; };
+		0000000000000000000000F5 /* NewsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListView.swift; sourceTree = "<group>"; };
+		0000000000000000000000F6 /* NewsStoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStoryCard.swift; sourceTree = "<group>"; };
+		0000000000000000000000F7 /* BiasRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiasRatingView.swift; sourceTree = "<group>"; };
+		0000000000000000000000F8 /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
+		0000000000000000000000F9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		0000000000000000000000FA /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		0000000000000000000000FB /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		0000000000000000000000FC /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		0000000000000000000000FD /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		0000000000000000000000FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0000000000000000000000FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		000000000000000000000100 /* NexusNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NexusNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000403 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000201 /* MainGroup */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000202 /* NexusNews */,
+				000000000000000000000203 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000202 /* NexusNews */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000F1 /* NexusNewsApp.swift */,
+				0000000000000000000000F2 /* ContentView.swift */,
+				000000000000000000000204 /* Models */,
+				000000000000000000000205 /* Views */,
+				000000000000000000000206 /* ViewModels */,
+				000000000000000000000207 /* Services */,
+				000000000000000000000208 /* Helpers */,
+				0000000000000000000000FE /* Assets.xcassets */,
+				000000000000000000000209 /* Preview Content */,
+			);
+			path = NexusNews;
+			sourceTree = "<group>";
+		};
+		000000000000000000000203 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000100 /* NexusNews.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000000000000000000000204 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000F3 /* NewsStory.swift */,
+				0000000000000000000000F4 /* PoliticalViewpoint.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		000000000000000000000205 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000F5 /* NewsListView.swift */,
+				0000000000000000000000F6 /* NewsStoryCard.swift */,
+				0000000000000000000000F7 /* BiasRatingView.swift */,
+				0000000000000000000000F8 /* NewsDetailView.swift */,
+				0000000000000000000000F9 /* ErrorView.swift */,
+				0000000000000000000000FA /* EmptyStateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		000000000000000000000206 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000FB /* NewsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		000000000000000000000207 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000FC /* NewsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		000000000000000000000208 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000FD /* ShareSheet.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		000000000000000000000209 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000FF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000000000301 /* NexusNews */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000602 /* Build configuration list for PBXNativeTarget "NexusNews" */;
+			buildPhases = (
+				000000000000000000000401 /* Sources */,
+				000000000000000000000402 /* Resources */,
+				000000000000000000000403 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NexusNews;
+			productName = NexusNews;
+			productReference = 000000000000000000000100 /* NexusNews.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000701 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					000000000000000000000301 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 000000000000000000000601 /* Build configuration list for PBXProject "NexusNews" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000201 /* MainGroup */;
+			productRefGroup = 000000000000000000000203 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000000000301 /* NexusNews */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000402 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000000000000000000000BE /* Assets.xcassets in Resources */,
+				0000000000000000000000BF /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000401 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0000000000000000000000B1 /* NexusNewsApp.swift in Sources */,
+				0000000000000000000000B2 /* ContentView.swift in Sources */,
+				0000000000000000000000B3 /* NewsStory.swift in Sources */,
+				0000000000000000000000B4 /* PoliticalViewpoint.swift in Sources */,
+				0000000000000000000000B5 /* NewsListView.swift in Sources */,
+				0000000000000000000000B6 /* NewsStoryCard.swift in Sources */,
+				0000000000000000000000B7 /* BiasRatingView.swift in Sources */,
+				0000000000000000000000B8 /* NewsDetailView.swift in Sources */,
+				0000000000000000000000B9 /* ErrorView.swift in Sources */,
+				0000000000000000000000BA /* EmptyStateView.swift in Sources */,
+				0000000000000000000000BB /* NewsViewModel.swift in Sources */,
+				0000000000000000000000BC /* NewsService.swift in Sources */,
+				0000000000000000000000BD /* ShareSheet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		000000000000000000000501 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		000000000000000000000502 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		000000000000000000000503 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NexusNews/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexusnews.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		000000000000000000000504 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NexusNews/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexusnews.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000000000000000000000601 /* Build configuration list for PBXProject "NexusNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000000000501 /* Debug */,
+				000000000000000000000502 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		000000000000000000000602 /* Build configuration list for PBXNativeTarget "NexusNews" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000000000503 /* Debug */,
+				000000000000000000000504 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 000000000000000000000701 /* Project object */;
+}
