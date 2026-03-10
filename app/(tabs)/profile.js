@@ -1,146 +1,161 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  Switch,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Linking,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Switch, ScrollView, StyleSheet } from 'react-native';
+import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 
-function SettingRow({ icon, label, value, onPress, right }) {
-  const { colors } = useTheme();
+const CATEGORIES = ['Business', 'Technology', 'Science', 'Health', 'Sports', 'Entertainment'];
+
+export default function Profile() {
+  const { colors, isDark, toggleTheme } = useTheme();
+  const [notifications, setNotifications] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState(['Technology', 'Science']);
+
+  const toggleCategory = (cat) => {
+    setSelectedCategories((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+    );
+  };
+
   return (
-    <TouchableOpacity
-      style={[styles.row, { borderBottomColor: colors.separator }]}
-      onPress={onPress}
-      disabled={!onPress}
-      activeOpacity={onPress ? 0.7 : 1}
-    >
-      <View style={[styles.iconWrap, { backgroundColor: colors.searchBar }]}>
-        <Ionicons name={icon} size={20} color={colors.accent} />
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.header, { color: colors.text }]}>Profile</Text>
+
+      <View style={[styles.userCard, { backgroundColor: colors.surface }]}>
+        <View style={[styles.avatar, { backgroundColor: colors.accent }]}>
+          <Ionicons name="person" size={32} color="#FFFFFF" />
+        </View>
+        <View>
+          <Text style={[styles.userName, { color: colors.text }]}>Reader</Text>
+          <Text style={[styles.userSub, { color: colors.textTertiary }]}>Free Plan</Text>
+        </View>
       </View>
-      <Text style={[styles.rowLabel, { color: colors.text }]}>{label}</Text>
-      <View style={styles.rowRight}>
-        {right || (
-          value !== undefined ? null : (
-            <Ionicons name="chevron-forward" size={16} color={colors.textTertiary} />
-          )
-        )}
-        {value !== undefined && (
-          <Ionicons name="chevron-forward" size={16} color={colors.textTertiary} />
-        )}
+
+      <Text style={[styles.sectionTitle, { color: colors.text }]}>Preferences</Text>
+      <View style={[styles.section, { backgroundColor: colors.surface }]}>
+        <SettingRow
+          icon="moon-outline"
+          label="Dark Mode"
+          colors={colors}
+          right={
+            <Switch
+              value={isDark}
+              onValueChange={toggleTheme}
+              trackColor={{ true: colors.accent }}
+            />
+          }
+        />
+        <View style={[styles.separator, { backgroundColor: colors.separator }]} />
+        <SettingRow
+          icon="notifications-outline"
+          label="Push Notifications"
+          colors={colors}
+          right={
+            <Switch
+              value={notifications}
+              onValueChange={setNotifications}
+              trackColor={{ true: colors.accent }}
+            />
+          }
+        />
+      </View>
+
+      <Text style={[styles.sectionTitle, { color: colors.text }]}>Your Interests</Text>
+      <View style={styles.categoriesGrid}>
+        {CATEGORIES.map((cat) => {
+          const selected = selectedCategories.includes(cat);
+          return (
+            <TouchableOpacity
+              key={cat}
+              style={[
+                styles.categoryChip,
+                { backgroundColor: colors.chipBg, borderColor: colors.chipBorder },
+                selected && { backgroundColor: colors.accent, borderColor: colors.accent },
+              ]}
+              onPress={() => toggleCategory(cat)}
+            >
+              <Text
+                style={[
+                  styles.categoryText,
+                  { color: colors.textTertiary },
+                  selected && { color: '#FFFFFF' },
+                ]}
+              >
+                {cat}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <Text style={[styles.sectionTitle, { color: colors.text }]}>About</Text>
+      <View style={[styles.section, { backgroundColor: colors.surface }]}>
+        <SettingRow icon="document-text-outline" label="Terms of Service" colors={colors} showArrow />
+        <View style={[styles.separator, { backgroundColor: colors.separator }]} />
+        <SettingRow icon="shield-outline" label="Privacy Policy" colors={colors} showArrow />
+        <View style={[styles.separator, { backgroundColor: colors.separator }]} />
+        <SettingRow icon="information-circle-outline" label="App Version" colors={colors} right={
+          <Text style={{ fontSize: 16, color: colors.textTertiary }}>1.0.0</Text>
+        } />
+      </View>
+
+      <View style={styles.bottomSpacer} />
+    </ScrollView>
+  );
+}
+
+function SettingRow({ icon, label, right, showArrow, colors }) {
+  return (
+    <TouchableOpacity style={styles.settingRow} disabled={!showArrow}>
+      <Ionicons name={icon} size={22} color={colors.accent} />
+      <Text style={[styles.settingLabel, { color: colors.text }]}>{label}</Text>
+      <View style={styles.settingRight}>
+        {right}
+        {showArrow && <Ionicons name="chevron-forward" size={18} color={colors.textTertiary} />}
       </View>
     </TouchableOpacity>
   );
 }
 
-export default function ProfileScreen() {
-  const { colors, isDark, toggleTheme } = useTheme();
-
-  return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-      {/* App info */}
-      <View style={[styles.header, { backgroundColor: colors.surface }]}>
-        <View style={[styles.appIcon, { backgroundColor: colors.accent }]}>
-          <Ionicons name="newspaper" size={36} color="#fff" />
-        </View>
-        <Text style={[styles.appName, { color: colors.text }]}>Nexus News</Text>
-        <Text style={[styles.appVersion, { color: colors.textSecondary }]}>Version 1.0.0</Text>
-      </View>
-
-      {/* Appearance */}
-      <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>APPEARANCE</Text>
-      <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.separator }]}>
-        <View style={[styles.row, { borderBottomColor: colors.separator }]}>
-          <View style={[styles.iconWrap, { backgroundColor: colors.searchBar }]}>
-            <Ionicons name={isDark ? 'moon' : 'sunny'} size={20} color={colors.accent} />
-          </View>
-          <Text style={[styles.rowLabel, { color: colors.text }]}>Dark Mode</Text>
-          <Switch
-            value={isDark}
-            onValueChange={toggleTheme}
-            trackColor={{ true: colors.accent, false: colors.separator }}
-            thumbColor="#fff"
-          />
-        </View>
-      </View>
-
-      {/* About */}
-      <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>ABOUT</Text>
-      <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.separator }]}>
-        <SettingRow
-          icon="globe-outline"
-          label="Powered by NewsAPI"
-          onPress={() => Linking.openURL('https://newsapi.org')}
-        />
-        <SettingRow
-          icon="code-slash-outline"
-          label="Built with Expo & React Native"
-        />
-      </View>
-    </ScrollView>
-  );
-}
-
 const styles = StyleSheet.create({
+  container: { flex: 1 },
   header: {
-    alignItems: 'center',
-    paddingVertical: 32,
-    marginBottom: 8,
+    fontSize: 34, fontWeight: '800',
+    paddingHorizontal: 16, paddingTop: 60, paddingBottom: 16,
   },
-  appIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
+  userCard: {
+    flexDirection: 'row', alignItems: 'center', gap: 14,
+    marginHorizontal: 16, padding: 16, borderRadius: 12,
+    shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06, shadowRadius: 2,
   },
-  appName: {
-    fontSize: 22,
-    fontWeight: '800',
+  avatar: {
+    width: 56, height: 56, borderRadius: 28,
+    justifyContent: 'center', alignItems: 'center',
   },
-  appVersion: {
-    fontSize: 13,
-    marginTop: 4,
-  },
+  userName: { fontSize: 18, fontWeight: '700' },
+  userSub: { fontSize: 14, marginTop: 2 },
   sectionTitle: {
-    fontSize: 12,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-    marginLeft: 16,
-    marginTop: 24,
-    marginBottom: 6,
+    fontSize: 18, fontWeight: '700',
+    paddingHorizontal: 16, marginTop: 28, marginBottom: 10,
   },
   section: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginHorizontal: 16, borderRadius: 12, overflow: 'hidden',
   },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  settingRow: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: 16, paddingVertical: 14, gap: 12,
+  },
+  settingLabel: { flex: 1, fontSize: 16 },
+  settingRight: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  separator: { height: 1, marginLeft: 50 },
+  categoriesGrid: {
+    flexDirection: 'row', flexWrap: 'wrap', gap: 8,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  iconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
+  categoryChip: {
+    paddingHorizontal: 16, paddingVertical: 10,
+    borderRadius: 20, borderWidth: 1.5,
   },
-  rowLabel: {
-    flex: 1,
-    fontSize: 15,
-  },
-  rowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  categoryText: { fontSize: 14, fontWeight: '600' },
+  bottomSpacer: { height: 60 },
 });

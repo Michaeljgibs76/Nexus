@@ -1,183 +1,203 @@
-import React, { useState, useEffect } from 'react';
+import { useLocalSearchParams, Stack, router } from 'expo-router';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
   Share,
   Linking,
   StyleSheet,
 } from 'react-native';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { addBookmark, removeBookmark, isBookmarked } from '../../services/bookmarks';
+import { addBookmark, removeBookmark, isBookmarked as checkBookmark } from '../../services/bookmarks';
 
-export default function ArticleScreen() {
+const API_URL = 'https://newsapi.org/v2';
+const API_KEY = 'your_api_key_here';
+
+export default function Article() {
+  const { id } = useLocalSearchParams();
   const { colors } = useTheme();
-  const { data } = useLocalSearchParams();
-  const navigation = useNavigation();
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
 
-  const article = data ? JSON.parse(data) : null;
-
   useEffect(() => {
-    if (!article) return;
-    isBookmarked(article.id).then(setBookmarked);
-  }, [article?.id]);
+    fetchArticle();
+    checkIfBookmarked();
+  }, [id]);
 
-  useEffect(() => {
-    if (!article) return;
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={{ flexDirection: 'row', gap: 8, marginRight: 8 }}>
-          <TouchableOpacity onPress={handleShare} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-            <Ionicons name="share-outline" size={24} color={colors.accent} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleBookmark} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-            <Ionicons
-              name={bookmarked ? 'bookmark' : 'bookmark-outline'}
-              size={24}
-              color={colors.accent}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [article, bookmarked, colors]);
-
-  const handleBookmark = async () => {
-    if (bookmarked) {
-      await removeBookmark(article.id);
-      setBookmarked(false);
-    } else {
-      await addBookmark(article);
-      setBookmarked(true);
+  const fetchArticle = async () => {
+    try {
+      // NewsAPI doesn't support fetch-by-id, so use the URL as lookup
+      // In production, you'd cache articles or use your own backend
+      const res = await fetch(
+        `${API_URL}/everything?qInTitle=${encodeURIComponent(id)}&pageSize=1&apiKey=${API_KEY}`
+      );
+      const data = await res.json();
+      if (data.articles?.length > 0) {
+        const raw = data.articles[0];
+        setArticle({
+          id: raw.url,
+          title: raw.title,
+          author: raw.author,
+          source: raw.source?.name,
+          publishedAt: new Date(raw.publishedAt).toLocaleDateString('en-US', {
+            month: 'long', day: 'numeric', year: 'numeric',
+          }),
+          imageUrl: raw.urlToImage,
+          body: raw.content || raw.description || '',
+          url: raw.url,
+        });
+      }
+    } catch (err) {
+      console.error('Failed to fetch article:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleShare = () => {
-    Share.share({ title: article.title, url: article.url, message: article.url });
+  const checkIfBookmarked = async () => {
+    const result = await checkBookmark(id);
+    setBookmarked(result);
   };
 
-  const handleOpenSource = () => {
-    if (article?.url) Linking.openURL(article.url);
+  const onShare = async () => {
+    if (!article) return;
+    try {
+      await Share.share({
+        title: article.title,
+        message: `${article.title}\n\n${article.url}`,
+      });
+    } catch (err) {
+      console.error('Share failed:', err);
+    }
   };
 
-  if (!article) {
+  const onBookmark = async () => {
+    if (bookmarked) {
+      await removeBookmark(article.id);
+    } else {
+      await addBookmark(article);
+    }
+    setBookmarked((prev) => !prev);
+  };
+
+  const onOpenSource = () => {
+    if (article?.url) {
+      Linking.openURL(article.url);
+    }
+  };
+
+  if (loading) {
     return (
       <View style={[styles.centered, { backgroundColor: colors.background }]}>
-        <Text style={{ color: colors.textSecondary }}>Article not found.</Text>
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }
 
-  const styles = makeStyles(colors);
-
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {article.imageUrl && (
-        <Image source={{ uri: article.imageUrl }} style={styles.image} resizeMode="cover" />
-      )}
-
-      <View style={styles.body}>
-        <Text style={styles.source}>{article.source}</Text>
-        <Text style={styles.title}>{article.title}</Text>
-
-        <View style={styles.metaRow}>
-          {article.author ? (
-            <Text style={styles.author} numberOfLines={1}>{article.author}</Text>
-          ) : null}
-          <Text style={styles.date}>{article.publishedAt}</Text>
-        </View>
-
-        {article.description ? (
-          <Text style={styles.description}>{article.description}</Text>
-        ) : null}
-
-        {article.body ? (
-          <Text style={styles.bodyText}>{article.body}</Text>
-        ) : null}
-
-        <TouchableOpacity style={styles.readMoreBtn} onPress={handleOpenSource}>
-          <Text style={styles.readMoreText}>Read Full Article</Text>
-          <Ionicons name="open-outline" size={16} color={colors.accent} style={{ marginLeft: 6 }} />
+  if (!article) {
+    return (
+      <View style={[styles.centered, { backgroundColor: colors.background }]}>
+        <Text style={[styles.errorText, { color: colors.textTertiary }]}>Article not found</Text>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Text style={{ fontSize: 16, color: colors.accent }}>Go back</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    );
+  }
+
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTransparent: true,
+          headerRight: () => (
+            <View style={styles.headerActions}>
+              <TouchableOpacity onPress={onBookmark} style={styles.headerBtn}>
+                <Ionicons
+                  name={bookmarked ? 'bookmark' : 'bookmark-outline'}
+                  size={22}
+                  color={colors.accent}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onShare} style={styles.headerBtn}>
+                <Ionicons name="share-outline" size={22} color={colors.accent} />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+      <ScrollView style={[styles.container, { backgroundColor: colors.background }]} bounces={true}>
+        {article.imageUrl && (
+          <Image source={{ uri: article.imageUrl }} style={styles.heroImage} />
+        )}
+
+        <View style={styles.content}>
+          <View style={styles.meta}>
+            <Text style={[styles.source, { color: colors.accent }]}>{article.source}</Text>
+            <Text style={{ fontSize: 13, color: colors.textTertiary, marginHorizontal: 6 }}>·</Text>
+            <Text style={{ fontSize: 13, color: colors.textTertiary }}>{article.publishedAt}</Text>
+          </View>
+
+          <Text style={[styles.title, { color: colors.text }]}>{article.title}</Text>
+
+          {article.author && (
+            <Text style={[styles.author, { color: colors.textSecondary }]}>
+              By {article.author}
+            </Text>
+          )}
+
+          <View style={[styles.divider, { backgroundColor: colors.separator }]} />
+
+          <Text style={[styles.body, { color: colors.text }]}>{article.body}</Text>
+
+          {article.body?.endsWith('…') && (
+            <Text style={{ fontSize: 14, color: colors.textTertiary, marginBottom: 16 }}>
+              Article content is truncated. Tap below to read the full article.
+            </Text>
+          )}
+
+          <TouchableOpacity
+            style={[styles.sourceBtn, { backgroundColor: colors.surface }]}
+            onPress={onOpenSource}
+          >
+            <Ionicons name="open-outline" size={16} color={colors.accent} />
+            <Text style={{ fontSize: 14, fontWeight: '600', color: colors.accent }}>
+              Read full article at source
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.bottomSpacer} />
+      </ScrollView>
+    </>
   );
 }
 
-function makeStyles(colors) {
-  return StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
-    content: { paddingBottom: 40 },
-    image: { width: '100%', height: 240, backgroundColor: colors.separator },
-    body: { padding: 20 },
-    source: {
-      fontSize: 12,
-      fontWeight: '700',
-      textTransform: 'uppercase',
-      color: colors.accent,
-      marginBottom: 10,
-      letterSpacing: 0.5,
-    },
-    title: {
-      fontSize: 22,
-      fontWeight: '800',
-      color: colors.text,
-      lineHeight: 30,
-      marginBottom: 12,
-    },
-    metaRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: 16,
-      flexWrap: 'wrap',
-      gap: 4,
-    },
-    author: {
-      fontSize: 13,
-      color: colors.textSecondary,
-      flex: 1,
-    },
-    date: {
-      fontSize: 13,
-      color: colors.textTertiary,
-    },
-    description: {
-      fontSize: 16,
-      color: colors.text,
-      lineHeight: 24,
-      marginBottom: 16,
-      fontWeight: '500',
-    },
-    bodyText: {
-      fontSize: 15,
-      color: colors.textSecondary,
-      lineHeight: 24,
-      marginBottom: 24,
-    },
-    readMoreBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1.5,
-      borderColor: colors.accent,
-      borderRadius: 10,
-      paddingVertical: 12,
-      marginTop: 8,
-    },
-    readMoreText: {
-      color: colors.accent,
-      fontWeight: '700',
-      fontSize: 15,
-    },
-    centered: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
-}
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  errorText: { fontSize: 16, marginBottom: 12 },
+  headerActions: { flexDirection: 'row', gap: 8 },
+  headerBtn: { padding: 6 },
+  heroImage: { width: '100%', height: 300 },
+  content: { padding: 20 },
+  meta: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
+  source: { fontSize: 13, fontWeight: '600', textTransform: 'uppercase' },
+  title: { fontSize: 28, fontWeight: '800', lineHeight: 34, marginBottom: 8 },
+  author: { fontSize: 14, marginBottom: 16 },
+  divider: { height: 1, marginBottom: 20 },
+  body: { fontSize: 17, lineHeight: 28, marginBottom: 24 },
+  sourceBtn: {
+    flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start',
+    paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8, gap: 6,
+  },
+  bottomSpacer: { height: 60 },
+});
