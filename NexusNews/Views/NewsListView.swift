@@ -5,14 +5,25 @@ struct NewsListView: View {
     let viewpoint: PoliticalViewpoint
     @EnvironmentObject var viewModel: NewsViewModel
     @State private var searchText = ""
+    @State private var selectedCategory: String? = nil
 
     // MARK: - Computed
 
+    var availableCategories: [String] {
+        let stories = viewModel.stories(for: viewpoint)
+        var seen = Set<String>()
+        return stories.compactMap { story in
+            seen.insert(story.category).inserted ? story.category : nil
+        }.sorted()
+    }
+
     var displayedStories: [NewsStory] {
         let stories = viewModel.stories(for: viewpoint)
-        guard !searchText.isEmpty else { return stories }
-        return stories.filter {
+        let categoryFiltered = selectedCategory.map { cat in stories.filter { $0.category == cat } } ?? stories
+        guard !searchText.isEmpty else { return categoryFiltered }
+        return categoryFiltered.filter {
             $0.title.localizedCaseInsensitiveContains(searchText) ||
+            $0.summary.localizedCaseInsensitiveContains(searchText) ||
             $0.source.localizedCaseInsensitiveContains(searchText) ||
             $0.category.localizedCaseInsensitiveContains(searchText)
         }
@@ -60,6 +71,7 @@ struct NewsListView: View {
         ScrollView {
             LazyVStack(spacing: 14) {
                 headerCard
+                categoryFilterChips
 
                 if displayedStories.isEmpty {
                     EmptyStateView(viewpoint: viewpoint, searchText: searchText)
@@ -76,6 +88,37 @@ struct NewsListView: View {
             .padding(.bottom, 24)
         }
         .refreshable { viewModel.refresh() }
+    }
+
+    private var categoryFilterChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                categoryChip(label: "All", category: nil)
+                ForEach(availableCategories, id: \.self) { cat in
+                    categoryChip(label: cat, category: cat)
+                }
+            }
+            .padding(.horizontal, 2)
+            .padding(.vertical, 2)
+        }
+    }
+
+    private func categoryChip(label: String, category: String?) -> some View {
+        let isSelected = selectedCategory == category
+        return Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                selectedCategory = isSelected ? nil : category
+            }
+        } label: {
+            Text(label)
+                .font(.caption)
+                .fontWeight(isSelected ? .semibold : .regular)
+                .foregroundColor(isSelected ? .white : viewpoint.color)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(isSelected ? viewpoint.color : viewpoint.color.opacity(0.10))
+                .cornerRadius(16)
+        }
     }
 
     private var headerCard: some View {
