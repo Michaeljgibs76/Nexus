@@ -51,8 +51,7 @@ struct NewsDetailView: View {
 
     private var heroHeader: some View {
         ZStack(alignment: .bottomLeading) {
-            story.viewpoint.gradient
-                .frame(height: 220)
+            heroBackground
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 8) {
@@ -80,6 +79,34 @@ struct NewsDetailView: View {
                 }
             }
             .padding()
+        }
+    }
+
+    @ViewBuilder
+    private var heroBackground: some View {
+        if let urlString = story.imageURL, let url = URL(string: urlString) {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 220)
+                        .clipped()
+                        .overlay(
+                            LinearGradient(
+                                colors: [.black.opacity(0.60), .black.opacity(0.20)],
+                                startPoint: .bottom,
+                                endPoint: .top
+                            )
+                        )
+                default:
+                    story.viewpoint.gradient.frame(height: 220)
+                }
+            }
+        } else {
+            story.viewpoint.gradient.frame(height: 220)
         }
     }
 

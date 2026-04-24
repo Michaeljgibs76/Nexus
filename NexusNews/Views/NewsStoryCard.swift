@@ -7,6 +7,9 @@ struct NewsStoryCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
+            // ── Thumbnail ─────────────────────────────────────────────────
+            storyThumbnail
+
             // ── Meta row ─────────────────────────────────────────────────
             HStack(spacing: 6) {
                 // Source
@@ -61,5 +64,38 @@ struct NewsStoryCard: View {
         .background(Color(.secondarySystemGroupedBackground))
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 2)
+    }
+
+    // MARK: - Thumbnail
+
+    @ViewBuilder
+    private var storyThumbnail: some View {
+        if let urlString = story.imageURL, let url = URL(string: urlString) {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 130)
+                        .clipped()
+                default:
+                    thumbnailPlaceholder
+                }
+            }
+        } else {
+            thumbnailPlaceholder
+        }
+    }
+
+    private var thumbnailPlaceholder: some View {
+        ZStack {
+            story.viewpoint.gradient
+            Image(systemName: story.categoryIcon)
+                .font(.system(size: 34))
+                .foregroundColor(.white.opacity(0.35))
+        }
+        .frame(height: 130)
     }
 }
