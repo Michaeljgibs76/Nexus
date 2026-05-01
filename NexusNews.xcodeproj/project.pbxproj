@@ -22,6 +22,12 @@
 		0000000000000000000000BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FD /* ShareSheet.swift */; };
 		0000000000000000000000BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FE /* Assets.xcassets */; };
 		0000000000000000000000BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000FF /* Preview Assets.xcassets */; };
+		0000000000000000000000C1 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A1 /* AdManager.swift */; };
+		0000000000000000000000C2 /* NativeAdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A2 /* NativeAdViewModel.swift */; };
+		0000000000000000000000C3 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A3 /* NativeAdView.swift */; };
+		0000000000000000000000C4 /* NativeAdCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A4 /* NativeAdCard.swift */; };
+		0000000000000000000000C5 /* AdConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A5 /* AdConfiguration.swift */; };
+		0000000000000000000000C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000000000000000000A6 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +47,13 @@
 		0000000000000000000000FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0000000000000000000000FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		000000000000000000000100 /* NexusNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NexusNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000000000000000000000A1 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		0000000000000000000000A2 /* NativeAdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewModel.swift; sourceTree = "<group>"; };
+		0000000000000000000000A3 /* NativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
+		0000000000000000000000A4 /* NativeAdCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdCard.swift; sourceTree = "<group>"; };
+		0000000000000000000000A5 /* AdConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdConfiguration.swift; sourceTree = "<group>"; };
+		0000000000000000000000A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0000000000000000000000A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +85,9 @@
 				000000000000000000000206 /* ViewModels */,
 				000000000000000000000207 /* Services */,
 				000000000000000000000208 /* Helpers */,
+				00000000000000000000020A /* Ads */,
 				0000000000000000000000FE /* Assets.xcassets */,
+				0000000000000000000000A7 /* Info.plist */,
 				000000000000000000000209 /* Preview Content */,
 			);
 			path = NexusNews;
@@ -132,6 +147,19 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		00000000000000000000020A /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				0000000000000000000000A1 /* AdManager.swift */,
+				0000000000000000000000A2 /* NativeAdViewModel.swift */,
+				0000000000000000000000A3 /* NativeAdView.swift */,
+				0000000000000000000000A4 /* NativeAdCard.swift */,
+				0000000000000000000000A5 /* AdConfiguration.swift */,
+				0000000000000000000000A6 /* AppDelegate.swift */,
+			);
+			path = Ads;
+			sourceTree = "<group>";
+		};
 		000000000000000000000209 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +184,9 @@
 			dependencies = (
 			);
 			name = NexusNews;
+			packageProductDependencies = (
+				000000000000000000000801 /* GoogleMobileAds */,
+			);
 			productName = NexusNews;
 			productReference = 000000000000000000000100 /* NexusNews.app */;
 			productType = "com.apple.product-type.application";
@@ -184,6 +215,9 @@
 				Base,
 			);
 			mainGroup = 000000000000000000000201 /* MainGroup */;
+			packageReferences = (
+				000000000000000000000901 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = 000000000000000000000203 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -223,6 +257,12 @@
 				0000000000000000000000BB /* NewsViewModel.swift in Sources */,
 				0000000000000000000000BC /* NewsService.swift in Sources */,
 				0000000000000000000000BD /* ShareSheet.swift in Sources */,
+				0000000000000000000000C1 /* AdManager.swift in Sources */,
+				0000000000000000000000C2 /* NativeAdViewModel.swift in Sources */,
+				0000000000000000000000C3 /* NativeAdView.swift in Sources */,
+				0000000000000000000000C4 /* NativeAdCard.swift in Sources */,
+				0000000000000000000000C5 /* AdConfiguration.swift in Sources */,
+				0000000000000000000000C6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +396,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NexusNews/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NexusNews/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -385,6 +426,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NexusNews/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NexusNews/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,6 +468,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		000000000000000000000901 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		000000000000000000000801 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 000000000000000000000901 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 	};
 	rootObject = 000000000000000000000701 /* Project object */;

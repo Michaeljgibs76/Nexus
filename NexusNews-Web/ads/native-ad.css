@@ -1,0 +1,115 @@
+/**
+ * NexusNews Web - Native Ad Styles
+ * 
+ * These styles ensure native ads blend seamlessly with the news feed
+ * while maintaining clear "Ad" attribution as required by Google policies.
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   Native Ad Card Container
+   ═══════════════════════════════════════════════════════════════ */
+
+.native-ad-card {
+    background: white;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.native-ad-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Ad Attribution Badge (required by Google)
+   ═══════════════════════════════════════════════════════════════ */
+
+.native-ad-card .ad-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    background-color: #ff9500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Ad Content Area
+   ═══════════════════════════════════════════════════════════════ */
+
+.ad-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.ad-in-feed {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Loading state */
+.ad-in-feed:empty::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 2px solid #e5e5ea;
+    border-top-color: #8e8e93;
+    border-radius: 50%;
+    animation: ad-spin 0.8s linear infinite;
+}
+
+@keyframes ad-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Dark Mode Support
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+    .native-ad-card {
+        background: #1c1c1e;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .native-ad-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .native-ad-card .ad-badge {
+        background-color: #ff9f0a;
+    }
+
+    .ad-in-feed:empty::after {
+        border-color: #3a3a3c;
+        border-top-color: #8e8e93;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive Adjustments
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    .native-ad-card {
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .native-ad-card {
+        padding: 18px;
+    }
+}

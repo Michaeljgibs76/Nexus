@@ -29,6 +29,11 @@ struct NewsListView: View {
         }
     }
 
+    /// Indices at which native ads should be inserted in the current feed.
+    private var adIndices: Set<Int> {
+        Set(AdConfiguration.adInsertionIndices(forStoryCount: displayedStories.count))
+    }
+
     // MARK: - Body
 
     var body: some View {
@@ -76,18 +81,28 @@ struct NewsListView: View {
                 if displayedStories.isEmpty {
                     EmptyStateView(viewpoint: viewpoint, searchText: searchText)
                 } else {
-                    ForEach(displayedStories) { story in
-                        NavigationLink(destination: NewsDetailView(story: story)) {
-                            NewsStoryCard(story: story)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
+                    storiesWithAds
                 }
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
         }
         .refreshable { viewModel.refresh() }
+    }
+
+    /// Renders stories interspersed with native ad cards at configured intervals.
+    private var storiesWithAds: some View {
+        ForEach(Array(displayedStories.enumerated()), id: \.element.id) { index, story in
+            // Insert an ad card BEFORE the story at each ad index
+            if adIndices.contains(index) {
+                NativeAdCard()
+            }
+
+            NavigationLink(destination: NewsDetailView(story: story)) {
+                NewsStoryCard(story: story)
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
     }
 
     private var categoryFilterChips: some View {
