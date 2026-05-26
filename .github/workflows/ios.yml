@@ -14,6 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install Xcode (direct download, no App Store)
+        if: ${{ vars.XCODE_VERSION != '' }}
+        env:
+          XCODE_VERSION: ${{ vars.XCODE_VERSION }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+        run: bash scripts/download-xcode.sh "$XCODE_VERSION"
+
       - name: Set Default Scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
