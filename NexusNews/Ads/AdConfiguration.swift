@@ -6,7 +6,7 @@ enum AdConfiguration {
 
     /// Number of news stories between each native ad in the feed.
     /// For example, a value of 5 means an ad appears after every 5th story.
-    static let storiesPerAd: Int = 5
+    static let storiesPerAd: Int = 3
 
     /// Minimum number of stories required before showing the first ad.
     /// Prevents ads from appearing in very short feeds.
